@@ -291,28 +291,37 @@ const FutureFoundAssessment = () => {
     const calculatedResults = calculateResults();
 
     try {
+      // Only include email fields that have valid values
+      const insertData: any = {
+        responses: responses,
+        results: calculatedResults,
+        created_at: new Date().toISOString()
+      };
+
+      if (isValidEmail(emails.parent)) {
+        insertData.parent_email = emails.parent;
+      }
+      
+      if (isValidEmail(emails.teen)) {
+        insertData.teen_email = emails.teen;
+      }
+
       const { data, error } = await supabase
         .from('assessments')
-        .insert([
-          {
-            parent_email: emails.parent,
-            teen_email: emails.teen,
-            responses: responses,
-            results: calculatedResults,
-            created_at: new Date().toISOString()
-          }
-        ]);
+        .insert([insertData]);
 
       if (error) {
-        console.warn('Supabase error (expected if table doesn\'t exist):', error);
-        // Continue anyway for demo purposes
+        console.warn('Supabase error:', error);
+        alert('Assessment completed! Results shown below, but there was an issue saving to database. Please contact support if you need the data stored.');
+      } else {
+        console.log('Assessment data saved successfully:', data);
       }
 
       setResults(calculatedResults);
       setStep(3);
     } catch (error) {
       console.error('Error submitting assessment:', error);
-      // Continue anyway for demo purposes
+      alert('Assessment completed! Results shown below, but there was an issue saving to database. Please contact support if you need the data stored.');
       setResults(calculatedResults);
       setStep(3);
     } finally {

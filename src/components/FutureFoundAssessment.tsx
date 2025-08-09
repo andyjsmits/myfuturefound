@@ -290,6 +290,13 @@ const FutureFoundAssessment = () => {
     setIsSubmitting(true);
     const calculatedResults = calculateResults();
 
+    // Debug logging
+    console.log('=== SUPABASE DEBUG INFO ===');
+    console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+    console.log('Supabase Key exists:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    console.log('Emails:', { parent: emails.parent, teen: emails.teen });
+    console.log('Responses count:', Object.keys(responses).length);
+
     try {
       // Only include email fields that have valid values
       const insertData: any = {
@@ -306,22 +313,44 @@ const FutureFoundAssessment = () => {
         insertData.teen_email = emails.teen;
       }
 
+      console.log('Data to insert:', insertData);
+
+      // Test connection first
+      const { data: testData, error: testError } = await supabase
+        .from('assessments')
+        .select('count', { count: 'exact', head: true });
+
+      if (testError) {
+        console.error('Connection test failed:', testError);
+        throw new Error(`Database connection failed: ${testError.message}`);
+      }
+
+      console.log('Connection test passed, current record count:', testData);
+
+      // Now try to insert
       const { data, error } = await supabase
         .from('assessments')
-        .insert([insertData]);
+        .insert([insertData])
+        .select();
 
       if (error) {
-        console.warn('Supabase error:', error);
-        alert('Assessment completed! Results shown below, but there was an issue saving to database. Please contact support if you need the data stored.');
+        console.error('Insert error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        throw new Error(`Database insert failed: ${error.message}`);
       } else {
-        console.log('Assessment data saved successfully:', data);
+        console.log('✅ Assessment data saved successfully!', data);
+        alert('✅ Assessment completed and data saved successfully!');
       }
 
       setResults(calculatedResults);
       setStep(3);
-    } catch (error) {
-      console.error('Error submitting assessment:', error);
-      alert('Assessment completed! Results shown below, but there was an issue saving to database. Please contact support if you need the data stored.');
+    } catch (error: any) {
+      console.error('❌ Error submitting assessment:', error);
+      alert(`❌ Assessment completed but failed to save: ${error.message}\n\nResults are shown below. Please contact support to save your data.`);
       setResults(calculatedResults);
       setStep(3);
     } finally {

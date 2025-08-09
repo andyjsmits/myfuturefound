@@ -17,8 +17,10 @@ export default function DatabaseTest() {
       const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
       const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
       
-      setTestResult(prev => prev + `✓ Supabase URL: ${url}\n`);
-      setTestResult(prev => prev + `✓ Supabase Key: ${key ? 'Present' : 'Missing'}\n\n`);
+      setTestResult(prev => prev + `Supabase URL: ${url || 'NOT SET'}\n`);
+      setTestResult(prev => prev + `Supabase Key: ${key ? `Present (${key.substring(0, 20)}...)` : 'NOT SET'}\n`);
+      setTestResult(prev => prev + `URL is placeholder: ${(url || '').includes('placeholder')}\n`);
+      setTestResult(prev => prev + `Key is placeholder: ${(key || '').includes('placeholder')}\n\n`);
       
       if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
         setTestResult(prev => prev + '❌ Environment variables not configured!\n');

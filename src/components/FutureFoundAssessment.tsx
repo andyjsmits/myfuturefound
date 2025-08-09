@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, hasValidCredentials } from '@/lib/supabase';
 
 const FutureFoundAssessment = () => {
   const [step, setStep] = useState(1);
@@ -289,6 +289,16 @@ const FutureFoundAssessment = () => {
 
     setIsSubmitting(true);
     const calculatedResults = calculateResults();
+
+    // Check credentials first
+    if (!hasValidCredentials()) {
+      console.error('❌ Supabase credentials not configured');
+      alert('❌ Database not configured. Environment variables missing.\n\nAssessment completed - results shown below.\n\nTo save data: Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Netlify environment variables.');
+      setResults(calculatedResults);
+      setStep(3);
+      setIsSubmitting(false);
+      return;
+    }
 
     // Debug logging
     console.log('=== SUPABASE DEBUG INFO ===');

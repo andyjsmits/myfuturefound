@@ -194,10 +194,13 @@ const FutureFoundAssessment = () => {
   };
 
   const handleEmailSubmit = () => {
-    if (isValidEmail(emails.parent) && isValidEmail(emails.teen)) {
+    const hasValidParent = isValidEmail(emails.parent);
+    const hasValidTeen = isValidEmail(emails.teen);
+    
+    if (hasValidParent || hasValidTeen) {
       setStep(2);
     } else {
-      alert('Please enter valid email addresses for both parent and teen.');
+      alert('Please enter at least one valid email address.');
     }
   };
 
@@ -468,13 +471,14 @@ const FutureFoundAssessment = () => {
                   </svg>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Let's Get Started</h2>
-                <p className="text-gray-600">We'll send the results to both parent and teen</p>
+                <p className="text-gray-600">Provide at least one email address for results</p>
               </div>
               
               <div className="space-y-5">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Parent Email
+                    <span className="text-gray-500 font-normal ml-2">(optional)</span>
                   </label>
                   <input
                     type="email"
@@ -488,6 +492,7 @@ const FutureFoundAssessment = () => {
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Teen Email
+                    <span className="text-gray-500 font-normal ml-2">(optional)</span>
                   </label>
                   <input
                     type="email"
@@ -752,7 +757,13 @@ const FutureFoundAssessment = () => {
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                   </svg>
-                  <span>Results will be sent to: {emails.parent} and {emails.teen}</span>
+                  <span>
+                    Results will be sent to: {
+                      [emails.parent, emails.teen]
+                        .filter(email => isValidEmail(email))
+                        .join(' and ') || 'provided email address'
+                    }
+                  </span>
                 </div>
               </div>
             </div>

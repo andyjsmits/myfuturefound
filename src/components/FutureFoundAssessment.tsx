@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 
 const FutureFoundAssessment = () => {
@@ -9,6 +9,8 @@ const FutureFoundAssessment = () => {
   const [responses, setResponses] = useState({});
   const [results, setResults] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Selected 15 questions (eliminated similar ones)
   const questions = [
@@ -204,7 +206,53 @@ const FutureFoundAssessment = () => {
       ...prev,
       [questionId]: answer
     }));
+    
+    // Auto-advance to next question with transition
+    if (currentQuestionIndex < questions.length - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setIsTransitioning(false);
+      }, 300);
+    }
   };
+
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestionIndex(currentQuestionIndex - 1);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (step !== 2) return;
+      
+      const currentQuestion = questions[currentQuestionIndex];
+      const keys = ['1', '2', '3', '4', '5'];
+      const answers = ['A', 'B', 'C', 'D', 'E'];
+      
+      const keyIndex = keys.indexOf(event.key);
+      if (keyIndex !== -1) {
+        handleResponseChange(currentQuestion.id, answers[keyIndex]);
+      }
+      
+      // Arrow key navigation
+      if (event.key === 'ArrowLeft' && currentQuestionIndex > 0) {
+        handlePreviousQuestion();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [step, currentQuestionIndex, questions]);
+
+  const currentQuestion = questions[currentQuestionIndex];
+  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   const calculateResults = () => {
     const scores = { A: 0, B: 0, C: 0, D: 0, E: 0 };
@@ -400,111 +448,186 @@ const FutureFoundAssessment = () => {
 
   if (step === 1) {
     return (
-      <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">FutureFound Assessment</h1>
-        <p className="text-gray-600 mb-6 text-center">
-          Discover your motivation style with our quick assessment. We'll need email addresses for both parent and teen to get started.
-        </p>
-        
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Parent Email *
-            </label>
-            <input
-              type="email"
-              value={emails.parent}
-              onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="parent@example.com"
-            />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+        <div className="max-w-lg mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+              Future<span className="text-blue-600">Found</span>
+            </h1>
+            <p className="text-xl text-gray-600 leading-relaxed">
+              Discover your unique motivation style with our research-backed assessment
+            </p>
           </div>
           
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Teen Email *
-            </label>
-            <input
-              type="email"
-              value={emails.teen}
-              onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="teen@example.com"
-            />
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div className="space-y-6">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Let's Get Started</h2>
+                <p className="text-gray-600">We'll send the results to both parent and teen</p>
+              </div>
+              
+              <div className="space-y-5">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Parent Email
+                  </label>
+                  <input
+                    type="email"
+                    value={emails.parent}
+                    onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
+                    className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="parent@example.com"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Teen Email
+                  </label>
+                  <input
+                    type="email"
+                    value={emails.teen}
+                    onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
+                    className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="teen@example.com"
+                  />
+                </div>
+                
+                <button
+                  onClick={handleEmailSubmit}
+                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Begin Assessment
+                </button>
+              </div>
+              
+              <div className="text-center pt-4">
+                <p className="text-sm text-gray-500">
+                  <span className="inline-flex items-center">
+                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                    </svg>
+                    Your information is secure and private
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
-          
-          <button
-            onClick={handleEmailSubmit}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Start Assessment
-          </button>
         </div>
       </div>
     );
   }
 
   if (step === 2) {
-    const progress = (Object.keys(responses).length / 15) * 100;
-    
     return (
-      <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <h1 className="text-2xl font-bold">Assessment Questions</h1>
-            <span className="text-sm text-gray-600">
-              {Object.keys(responses).length} / 15
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        </div>
-
-        <div className="space-y-8">
-          {questions.map((question) => (
-            <div key={question.id} className="border-b border-gray-200 pb-6">
-              <h3 className="text-lg font-medium mb-4">
-                {question.id}. {question.text}
-              </h3>
-              
-              <div className="space-y-2">
-                {Object.entries(question.options).map(([key, text]) => (
-                  <label key={key} className="flex items-start space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50">
-                    <input
-                      type="radio"
-                      name={`question-${question.id}`}
-                      value={key}
-                      checked={responses[question.id as keyof typeof responses] === key}
-                      onChange={() => handleResponseChange(question.id, key)}
-                      className="mt-1 text-blue-600"
-                    />
-                    <span className="text-gray-700">{text}</span>
-                  </label>
-                ))}
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+        <div className="w-full max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center mb-4">
+              <div className="flex items-center bg-white rounded-full px-6 py-3 shadow-lg">
+                <span className="text-2xl font-bold text-gray-900 mr-3">
+                  Question {currentQuestionIndex + 1}
+                </span>
+                <span className="text-lg text-gray-500">of {questions.length}</span>
               </div>
             </div>
-          ))}
-        </div>
+            
+            {/* Progress Bar */}
+            <div className="w-full max-w-md mx-auto bg-white/30 rounded-full h-3 mb-6 shadow-inner">
+              <div 
+                className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-500 ease-out shadow-sm"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
 
-        <div className="mt-8 flex justify-between">
-          <button
-            onClick={() => setStep(1)}
-            className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
-          >
-            Back
-          </button>
-          
-          <button
-            onClick={handleSubmit}
-            disabled={Object.keys(responses).length < 15 || isSubmitting}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? 'Calculating...' : 'Get Results'}
-          </button>
+          {/* Question Card */}
+          <div className={`transition-all duration-300 transform ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 leading-tight text-center">
+                {currentQuestion.text}
+              </h2>
+              
+              <div className="space-y-4">
+                {Object.entries(currentQuestion.options).map(([key, text], index) => {
+                  const isSelected = responses[currentQuestion.id as keyof typeof responses] === key;
+                  const keyNumber = index + 1;
+                  
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => handleResponseChange(currentQuestion.id, key)}
+                      className={`w-full p-6 text-left rounded-xl border-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] group ${
+                        isSelected 
+                          ? 'border-blue-500 bg-blue-50 shadow-lg' 
+                          : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50/50'
+                      }`}
+                    >
+                      <div className="flex items-start space-x-4">
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold transition-all duration-200 ${
+                          isSelected 
+                            ? 'bg-blue-500 text-white' 
+                            : 'bg-gray-100 text-gray-600 group-hover:bg-blue-100'
+                        }`}>
+                          {keyNumber}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-lg leading-relaxed text-gray-800 font-medium">
+                            {text}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Navigation Hints */}
+              <div className="mt-8 pt-6 border-t border-gray-100">
+                <div className="flex flex-col sm:flex-row items-center justify-between text-sm text-gray-500 space-y-2 sm:space-y-0">
+                  <div className="flex items-center space-x-4">
+                    <span className="inline-flex items-center">
+                      <kbd className="px-2 py-1 bg-gray-100 rounded text-xs font-mono mr-2">1-5</kbd>
+                      Quick select
+                    </span>
+                    {currentQuestionIndex > 0 && (
+                      <span className="inline-flex items-center">
+                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs font-mono mr-2">←</kbd>
+                        Previous
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    {currentQuestionIndex > 0 && (
+                      <button
+                        onClick={handlePreviousQuestion}
+                        className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors"
+                      >
+                        ← Back
+                      </button>
+                    )}
+                    
+                    {currentQuestionIndex === questions.length - 1 && Object.keys(responses).length === questions.length && (
+                      <button
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}
+                        className="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-200 transition-all duration-200 disabled:opacity-50"
+                      >
+                        {isSubmitting ? 'Calculating...' : 'Get My Results'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -512,44 +635,128 @@ const FutureFoundAssessment = () => {
 
   if (step === 3 && results) {
     return (
-      <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-center mb-8">Your Motivation Profile</h1>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Your Top Motivations</h2>
-            {results.topTwo.map((motivation: any, index: number) => (
-              <div key={motivation.code} className="mb-6 p-4 border rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-bold text-lg">
-                    #{index + 1}: {motivation.name}
-                  </h3>
-                  <span className="text-2xl font-bold text-blue-600">
-                    {motivation.score}/15
-                  </span>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
+              <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+              Your Motivation Profile
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Based on your responses, here's your unique motivation style breakdown
+            </p>
+          </div>
+
+          {/* Top Motivations */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Top Motivations</h2>
+              {results.topTwo.map((motivation: any, index: number) => (
+                <div key={motivation.code} className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${
+                        index === 0 ? 'bg-gold-100 text-gold-600' : 'bg-silver-100 text-silver-600'
+                      }`}>
+                        {index === 0 ? '🥇' : '🥈'}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {motivation.name}
+                        </h3>
+                        <p className="text-sm text-gray-500 font-medium">
+                          {motivation.code} • Primary Motivation #{index + 1}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-extrabold text-blue-600">
+                        {motivation.score}
+                      </div>
+                      <div className="text-sm text-gray-500 font-medium">
+                        out of 15
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    {motivation.description}
+                  </p>
+                  <div className="mt-4">
+                    <div className="bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full transition-all duration-1000"
+                        style={{ width: `${motivation.percentage}%` }}
+                      />
+                    </div>
+                    <div className="text-right mt-1">
+                      <span className="text-sm font-semibold text-gray-600">
+                        {motivation.percentage}%
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-gray-700">{motivation.description}</p>
+              ))}
+            </div>
+            
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Complete Profile</h2>
+              <RadarChart data={results.all} />
+            </div>
+          </div>
+
+          {/* All Motivations Summary */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Full Motivation Breakdown</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              {results.all.map((motivation: any, index: number) => (
+                <div key={motivation.code} className="text-center p-4 rounded-xl border border-gray-200 hover:border-blue-300 transition-colors">
+                  <div className="text-2xl font-bold text-blue-600 mb-2">
+                    {motivation.score}
+                  </div>
+                  <div className="font-semibold text-gray-900 text-sm mb-1">
+                    {motivation.code}
+                  </div>
+                  <div className="text-xs text-gray-600">
+                    {motivation.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Get Your Detailed Results
+              </h3>
+              <p className="text-gray-600 mb-6">
+                We'll send a comprehensive report with career recommendations and next steps to both email addresses.
+              </p>
+              
+              <button
+                onClick={sendResultsByEmail}
+                className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-green-700 hover:to-emerald-700 focus:outline-none focus:ring-4 focus:ring-green-200 transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg"
+              >
+                📧 Send Detailed Results
+              </button>
+              
+              <div className="mt-4 text-sm text-gray-500">
+                <div className="flex items-center justify-center space-x-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  <span>Results will be sent to: {emails.parent} and {emails.teen}</span>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
-          
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Complete Profile</h2>
-            <RadarChart data={results.all} />
-          </div>
-        </div>
-        
-        <div className="mt-8 text-center">
-          <button
-            onClick={sendResultsByEmail}
-            className="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-          >
-            Send Results by Email
-          </button>
-        </div>
-        
-        <div className="mt-6 text-center text-sm text-gray-600">
-          Results will be sent to: {emails.parent} and {emails.teen}
         </div>
       </div>
     );

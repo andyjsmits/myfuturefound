@@ -1,9 +1,13 @@
+import Hero from '@/components/Hero'
 import FutureFoundAssessment from '@/components/FutureFoundAssessment'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-50 py-8">
-      <FutureFoundAssessment />
-    </main>
+    <div className="min-h-screen">
+      <Hero />
+      <section id="assessment" className="py-16 bg-gray-50">
+        <FutureFoundAssessment />
+      </section>
+    </div>
   )
 }

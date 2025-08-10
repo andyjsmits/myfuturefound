@@ -508,13 +508,22 @@ const FutureFoundAssessment = () => {
 
   if (step === 1) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 py-8 relative" style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      }}>
-        {/* VERY OBVIOUS TEST BLOBS */}
-        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400 rounded-full opacity-80 animate-bounce z-50"></div>
-        <div className="absolute top-10 right-10 w-24 h-24 bg-pink-400 rounded-full opacity-80 animate-pulse z-50"></div>
-        <div className="absolute bottom-10 left-1/2 w-20 h-20 bg-green-400 rounded-full opacity-80 animate-spin z-50"></div>
+      <div className="flex items-center justify-center px-4 py-16 relative">
+        {/* Animated Background Blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div 
+            className="absolute -top-8 -left-8 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"
+            style={{ animationDelay: '0s' }}
+          ></div>
+          <div 
+            className="absolute top-1/2 -right-8 w-72 h-72 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"
+            style={{ animationDelay: '2s' }}
+          ></div>
+          <div 
+            className="absolute -bottom-8 left-1/3 w-72 h-72 bg-gradient-to-br from-pink-400/20 to-cyan-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"
+            style={{ animationDelay: '4s' }}
+          ></div>
+        </div>
         <div className="w-full max-w-2xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16 animate-fade-in">
@@ -553,11 +562,13 @@ const FutureFoundAssessment = () => {
           
           {/* Form Card */}
           <div 
-            className="rounded-3xl p-8 md:p-12 border-4 border-yellow-300"
+            className="rounded-3xl p-8 md:p-12 shadow-2xl transform hover:scale-105 transition-all duration-300"
             style={{
-              background: 'white',
-              boxShadow: '0 50px 100px rgba(0, 0, 0, 0.5), 0 25px 50px rgba(255, 0, 0, 0.3)',
-              transform: 'translateY(-20px)'
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 30px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
             }}
           >
             <div className="space-y-8">
@@ -626,9 +637,10 @@ const FutureFoundAssessment = () => {
                     setShowMotivation(true);
                     setTimeout(() => handleEmailSubmit(), 1000);
                   }}
-                  className="w-full bg-gradient-to-r from-red-600 to-purple-600 text-white py-5 px-8 rounded-xl text-xl font-bold border-4 border-yellow-400 hover:from-red-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-110 active:scale-90 shadow-lg hover:shadow-2xl"
+                  className="w-full text-white py-5 px-8 rounded-xl text-xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl"
                   style={{
-                    boxShadow: '0 20px 50px rgba(255, 0, 0, 0.6), 0 10px 20px rgba(128, 0, 128, 0.4)'
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    boxShadow: '0 20px 40px rgba(102, 126, 234, 0.4), 0 10px 20px rgba(118, 75, 162, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                   }}
                 >
                   <span className="flex items-center justify-center">
@@ -889,8 +901,23 @@ const FutureFoundAssessment = () => {
 
   if (step === 3 && results) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
-        <div className="max-w-6xl mx-auto">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 relative overflow-hidden">
+        {/* Animated Background Blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div 
+            className="absolute -top-8 -left-8 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full mix-blend-multiply filter blur-2xl animate-blob"
+            style={{ animationDelay: '0s' }}
+          ></div>
+          <div 
+            className="absolute top-1/2 -right-8 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full mix-blend-multiply filter blur-2xl animate-blob"
+            style={{ animationDelay: '2s' }}
+          ></div>
+          <div 
+            className="absolute -bottom-8 left-1/4 w-96 h-96 bg-gradient-to-br from-pink-400/10 to-cyan-400/10 rounded-full mix-blend-multiply filter blur-2xl animate-blob"
+            style={{ animationDelay: '4s' }}
+          ></div>
+        </div>
+        <div className="max-w-6xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
@@ -911,7 +938,16 @@ const FutureFoundAssessment = () => {
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Top Motivations</h2>
               {results.topTwo.map((motivation: any, index: number) => (
-                <div key={motivation.code} className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <div 
+                  key={motivation.code} 
+                  className="rounded-2xl p-8 shadow-xl border border-white/30 hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.85)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(59, 130, 246, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  }}
+                >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${
@@ -957,14 +993,30 @@ const FutureFoundAssessment = () => {
               ))}
             </div>
             
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+            <div 
+              className="rounded-2xl p-8 shadow-xl border border-white/30"
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(59, 130, 246, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+              }}
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Complete Profile</h2>
               <RadarChart data={results.all} />
             </div>
           </div>
 
           {/* All Motivations Summary */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 mb-8">
+          <div 
+            className="rounded-2xl p-8 shadow-xl border border-white/30 mb-8"
+            style={{
+              background: 'rgba(255, 255, 255, 0.85)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(59, 130, 246, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+            }}
+          >
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Full Motivation Breakdown</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {results.all.map((motivation: any, index: number) => (
@@ -984,7 +1036,15 @@ const FutureFoundAssessment = () => {
           </div>
 
           {/* Actions */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center">
+          <div 
+            className="rounded-2xl p-8 shadow-xl border border-white/30 text-center"
+            style={{
+              background: 'rgba(255, 255, 255, 0.85)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(59, 130, 246, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+            }}
+          >
             <div className="max-w-2xl mx-auto">
               <h3 className="text-xl font-bold text-gray-900 mb-4">
                 Get Your Detailed Results

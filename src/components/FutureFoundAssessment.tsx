@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase, hasValidCredentials } from '@/lib/supabase';
 
 const FutureFoundAssessment = () => {
@@ -11,6 +11,9 @@ const FutureFoundAssessment = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [showMotivation, setShowMotivation] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
 
   // Selected 15 questions (eliminated similar ones)
   const questions = [
@@ -205,19 +208,25 @@ const FutureFoundAssessment = () => {
   };
 
   const handleResponseChange = (questionId: number, answer: string) => {
-    setResponses(prev => ({
-      ...prev,
-      [questionId]: answer
-    }));
+    setSelectedAnswer(answer);
     
-    // Auto-advance to next question with transition
-    if (currentQuestionIndex < questions.length - 1) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setIsTransitioning(false);
-      }, 300);
-    }
+    // Animate selection
+    setTimeout(() => {
+      setResponses(prev => ({
+        ...prev,
+        [questionId]: answer
+      }));
+      
+      // Auto-advance to next question with transition
+      if (currentQuestionIndex < questions.length - 1) {
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setCurrentQuestionIndex(currentQuestionIndex + 1);
+          setSelectedAnswer(null);
+          setIsTransitioning(false);
+        }, 600);
+      }
+    }, 300);
   };
 
   const handlePreviousQuestion = () => {
@@ -499,70 +508,125 @@ const FutureFoundAssessment = () => {
 
   if (step === 1) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
-        <div className="max-w-lg mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-              Future<span className="text-blue-600">Found</span>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 px-4 py-8">
+        <div className="w-full max-w-2xl mx-auto">
+          {/* Hero Section */}
+          <div className="text-center mb-16 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl mb-8 shadow-lg">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h1 className="text-6xl font-extrabold text-gray-900 mb-6 tracking-tight">
+              Future<span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Found</span>
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
               Discover your unique motivation style with our research-backed assessment
             </p>
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500 mb-8">
+              <div className="flex items-center">
+                <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                15 Questions
+              </div>
+              <div className="flex items-center">
+                <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                5 Minutes
+              </div>
+              <div className="flex items-center">
+                <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                Instant Results
+              </div>
+            </div>
           </div>
           
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <div className="space-y-6">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Let's Get Started</h2>
-                <p className="text-gray-600">Provide at least one email address for results</p>
+          {/* Form Card */}
+          <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 border border-white/20">
+            <div className="space-y-8">
+              <div className="text-center">
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">Ready to Begin?</h2>
+                <p className="text-gray-600 text-lg">We'll send your personalized results via email</p>
               </div>
               
-              <div className="space-y-5">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
                     Parent Email
-                    <span className="text-gray-500 font-normal ml-2">(optional)</span>
+                    <span className="text-gray-400 font-normal ml-2">(optional)</span>
                   </label>
-                  <input
-                    type="email"
-                    value={emails.parent}
-                    onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
-                    className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="parent@example.com"
-                  />
+                  <div className="relative">
+                    <input
+                      type="email"
+                      value={emails.parent}
+                      onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
+                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 bg-white/50 backdrop-blur"
+                      placeholder="parent@example.com"
+                    />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
                     Teen Email
-                    <span className="text-gray-500 font-normal ml-2">(optional)</span>
+                    <span className="text-gray-400 font-normal ml-2">(optional)</span>
                   </label>
-                  <input
-                    type="email"
-                    value={emails.teen}
-                    onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
-                    className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="teen@example.com"
-                  />
+                  <div className="relative">
+                    <input
+                      type="email"
+                      value={emails.teen}
+                      onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
+                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 bg-white/50 backdrop-blur"
+                      placeholder="teen@example.com"
+                    />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                
-                <button
-                  onClick={handleEmailSubmit}
-                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  Begin Assessment
-                </button>
               </div>
               
-              <div className="text-center pt-4">
-                <p className="text-sm text-gray-500">
-                  Your information is secure and private
-                </p>
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setShowMotivation(true);
+                    setTimeout(() => handleEmailSubmit(), 1000);
+                  }}
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-5 px-8 rounded-xl text-xl font-bold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
+                >
+                  <span className="flex items-center justify-center">
+                    Begin Your Journey
+                    <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
+                </button>
+                
+                {showMotivation && (
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium animate-bounce">
+                    Great! Let's discover your motivation style! 🚀
+                  </div>
+                )}
+              </div>
+              
+              <div className="text-center">
+                <div className="flex items-center justify-center text-sm text-gray-500">
+                  <svg className="w-4 h-4 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
+                  Your data is encrypted and secure
+                </div>
               </div>
             </div>
           </div>
@@ -573,104 +637,191 @@ const FutureFoundAssessment = () => {
 
   if (step === 2) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-        <div className="w-full max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-4">
-              <div className="flex items-center bg-white rounded-full px-6 py-3 shadow-lg">
-                <span className="text-2xl font-bold text-gray-900 mr-3">
-                  Question {currentQuestionIndex + 1}
-                </span>
-                <span className="text-lg text-gray-500">of {questions.length}</span>
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-4 -left-4 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute -top-4 -right-4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div className="relative z-10 min-h-screen flex flex-col">
+          {/* Fixed Header */}
+          <div className="bg-white/90 backdrop-blur-lg border-b border-white/20 sticky top-0 z-20">
+            <div className="max-w-4xl mx-auto px-4 py-4">
+              <div className="flex items-center justify-between">
+                {/* Logo/Brand */}
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-gray-900 hidden sm:block">FutureFound</span>
+                </div>
+
+                {/* Progress Indicator */}
+                <div className="flex items-center space-x-4">
+                  <div className="text-sm font-medium text-gray-600">
+                    Question <span className="text-blue-600 font-bold">{currentQuestionIndex + 1}</span> of {questions.length}
+                  </div>
+                  <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      ref={progressRef}
+                      className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-700 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                  <div className="text-sm font-medium text-gray-600">
+                    {Math.round(progress)}%
+                  </div>
+                </div>
+
+                {/* Exit Button */}
+                <button
+                  onClick={() => setStep(1)}
+                  className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                  title="Exit Assessment"
+                >
+                  <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
-            </div>
-            
-            {/* Progress Bar */}
-            <div className="w-full max-w-md mx-auto bg-white/30 rounded-full h-3 mb-6 shadow-inner">
-              <div 
-                className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-500 ease-out shadow-sm"
-                style={{ width: `${progress}%` }}
-              />
             </div>
           </div>
 
-          {/* Question Card */}
-          <div className={`transition-all duration-300 transform ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 leading-tight text-center">
-                {currentQuestion.text}
-              </h2>
-              
-              <div className="space-y-4">
-                {Object.entries(currentQuestion.options).map(([key, text], index) => {
-                  const isSelected = responses[currentQuestion.id as keyof typeof responses] === key;
-                  const keyNumber = index + 1;
-                  
-                  return (
-                    <button
-                      key={key}
-                      onClick={() => handleResponseChange(currentQuestion.id, key)}
-                      className={`w-full p-6 text-left rounded-xl border-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] group ${
-                        isSelected 
-                          ? 'border-blue-500 bg-blue-50 shadow-lg' 
-                          : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50/50'
-                      }`}
-                    >
-                      <div className="flex items-start space-x-4">
-                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold transition-all duration-200 ${
-                          isSelected 
-                            ? 'bg-blue-500 text-white' 
-                            : 'bg-gray-100 text-gray-600 group-hover:bg-blue-100'
-                        }`}>
-                          {keyNumber}
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-lg leading-relaxed text-gray-800 font-medium">
-                            {text}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Navigation Hints */}
-              <div className="mt-8 pt-6 border-t border-gray-100">
-                <div className="flex flex-col sm:flex-row items-center justify-between text-sm text-gray-500 space-y-2 sm:space-y-0">
-                  <div className="flex items-center space-x-4">
-                    <span className="inline-flex items-center">
-                      <kbd className="px-2 py-1 bg-gray-100 rounded text-xs font-mono mr-2">1-5</kbd>
-                      Quick select
-                    </span>
-                    {currentQuestionIndex > 0 && (
-                      <span className="inline-flex items-center">
-                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs font-mono mr-2">←</kbd>
-                        Previous
-                      </span>
-                    )}
+          {/* Main Content */}
+          <div className="flex-1 flex items-center justify-center px-4 py-8">
+            <div className="w-full max-w-4xl mx-auto">
+              {/* Question Card */}
+              <div className={`transition-all duration-500 transform ${
+                isTransitioning 
+                  ? 'opacity-0 scale-95 translate-y-8' 
+                  : 'opacity-100 scale-100 translate-y-0'
+              }`}>
+                <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+                  {/* Question Header */}
+                  <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 px-8 md:px-12 py-8 border-b border-gray-100">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight text-center">
+                      {currentQuestion.text}
+                    </h2>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
-                    {currentQuestionIndex > 0 && (
-                      <button
-                        onClick={handlePreviousQuestion}
-                        className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors"
-                      >
-                        ← Back
-                      </button>
-                    )}
-                    
-                    {currentQuestionIndex === questions.length - 1 && Object.keys(responses).length === questions.length && (
-                      <button
-                        onClick={handleSubmit}
-                        disabled={isSubmitting}
-                        className="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-200 transition-all duration-200 disabled:opacity-50"
-                      >
-                        {isSubmitting ? 'Calculating...' : 'Get My Results'}
-                      </button>
-                    )}
+                  {/* Answer Options */}
+                  <div className="p-8 md:p-12">
+                    <div className="grid gap-4 md:gap-6">
+                      {Object.entries(currentQuestion.options).map(([key, text], index) => {
+                        const isSelected = selectedAnswer === key;
+                        const wasSelected = responses[currentQuestion.id as keyof typeof responses] === key;
+                        const keyNumber = index + 1;
+                        
+                        return (
+                          <button
+                            key={key}
+                            onClick={() => handleResponseChange(currentQuestion.id, key)}
+                            disabled={selectedAnswer !== null}
+                            className={`group relative w-full p-6 md:p-8 text-left rounded-2xl border-2 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:pointer-events-none ${
+                              isSelected
+                                ? 'border-blue-500 bg-blue-500 text-white shadow-xl scale-[1.02]'
+                                : wasSelected
+                                ? 'border-blue-200 bg-blue-50'
+                                : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-lg'
+                            }`}
+                          >
+                            {/* Selection Animation */}
+                            {isSelected && (
+                              <div className="absolute inset-0 bg-blue-500 rounded-2xl animate-pulse" />
+                            )}
+                            
+                            <div className="relative flex items-start space-x-4 md:space-x-6">
+                              <div className={`flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-lg md:text-xl font-bold transition-all duration-300 ${
+                                isSelected
+                                  ? 'bg-white text-blue-500'
+                                  : wasSelected
+                                  ? 'bg-blue-500 text-white'
+                                  : 'bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-600'
+                              }`}>
+                                {isSelected ? (
+                                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                                  </svg>
+                                ) : (
+                                  keyNumber
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className={`text-lg md:text-xl leading-relaxed font-medium transition-colors ${
+                                  isSelected ? 'text-white' : 'text-gray-800'
+                                }`}>
+                                  {text}
+                                </p>
+                              </div>
+                            </div>
+                            
+                            {/* Hover Effect */}
+                            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/5 group-hover:to-indigo-500/5 transition-all duration-300" />
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Navigation */}
+                    <div className="mt-8 pt-6 border-t border-gray-100">
+                      <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+                        {/* Keyboard Hints */}
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center">
+                            <span className="hidden sm:inline mr-2">Use keyboard:</span>
+                            <div className="flex space-x-1">
+                              {[1, 2, 3, 4, 5].map(num => (
+                                <kbd key={num} className="px-2 py-1 bg-gray-100 rounded text-xs font-mono">
+                                  {num}
+                                </kbd>
+                              ))}
+                            </div>
+                          </div>
+                          {currentQuestionIndex > 0 && (
+                            <div className="flex items-center">
+                              <kbd className="px-2 py-1 bg-gray-100 rounded text-xs font-mono mr-2">←</kbd>
+                              <span>Go back</span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* Action Buttons */}
+                        <div className="flex items-center space-x-3">
+                          {currentQuestionIndex > 0 && (
+                            <button
+                              onClick={handlePreviousQuestion}
+                              className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors border border-gray-200 rounded-lg hover:bg-gray-50"
+                            >
+                              ← Previous
+                            </button>
+                          )}
+                          
+                          {currentQuestionIndex === questions.length - 1 && Object.keys(responses).length === questions.length && (
+                            <button
+                              onClick={handleSubmit}
+                              disabled={isSubmitting}
+                              className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 focus:outline-none focus:ring-4 focus:ring-green-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                            >
+                              {isSubmitting ? (
+                                <span className="flex items-center">
+                                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                  </svg>
+                                  Analyzing...
+                                </span>
+                              ) : (
+                                'Get My Results 🎯'
+                              )}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

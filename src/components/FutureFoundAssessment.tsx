@@ -512,9 +512,9 @@ const FutureFoundAssessment = () => {
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       }}>
         {/* VERY OBVIOUS TEST BLOBS */}
-        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400 rounded-full opacity-80 animate-bounce"></div>
-        <div className="absolute top-10 right-10 w-24 h-24 bg-pink-400 rounded-full opacity-80 animate-pulse"></div>
-        <div className="absolute bottom-10 left-1/2 w-20 h-20 bg-green-400 rounded-full opacity-80 animate-spin"></div>
+        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400 rounded-full opacity-80 animate-bounce z-50"></div>
+        <div className="absolute top-10 right-10 w-24 h-24 bg-pink-400 rounded-full opacity-80 animate-pulse z-50"></div>
+        <div className="absolute bottom-10 left-1/2 w-20 h-20 bg-green-400 rounded-full opacity-80 animate-spin z-50"></div>
         <div className="w-full max-w-2xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16 animate-fade-in">

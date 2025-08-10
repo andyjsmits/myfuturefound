@@ -508,7 +508,13 @@ const FutureFoundAssessment = () => {
 
   if (step === 1) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 px-4 py-8">
+      <div className="min-h-screen flex items-center justify-center px-4 py-8 relative" style={{
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      }}>
+        {/* VERY OBVIOUS TEST BLOBS */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400 rounded-full opacity-80 animate-bounce"></div>
+        <div className="absolute top-10 right-10 w-24 h-24 bg-pink-400 rounded-full opacity-80 animate-pulse"></div>
+        <div className="absolute bottom-10 left-1/2 w-20 h-20 bg-green-400 rounded-full opacity-80 animate-spin"></div>
         <div className="w-full max-w-2xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16 animate-fade-in">
@@ -547,13 +553,11 @@ const FutureFoundAssessment = () => {
           
           {/* Form Card */}
           <div 
-            className="rounded-3xl shadow-2xl p-8 md:p-12"
+            className="rounded-3xl p-8 md:p-12 border-4 border-yellow-300"
             style={{
-              background: 'rgba(255, 255, 255, 0.8)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              background: 'white',
+              boxShadow: '0 50px 100px rgba(0, 0, 0, 0.5), 0 25px 50px rgba(255, 0, 0, 0.3)',
+              transform: 'translateY(-20px)'
             }}
           >
             <div className="space-y-8">
@@ -622,9 +626,9 @@ const FutureFoundAssessment = () => {
                     setShowMotivation(true);
                     setTimeout(() => handleEmailSubmit(), 1000);
                   }}
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-5 px-8 rounded-xl text-xl font-bold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl"
+                  className="w-full bg-gradient-to-r from-red-600 to-purple-600 text-white py-5 px-8 rounded-xl text-xl font-bold border-4 border-yellow-400 hover:from-red-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-110 active:scale-90 shadow-lg hover:shadow-2xl"
                   style={{
-                    boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.4), 0 10px 10px -5px rgba(59, 130, 246, 0.04)'
+                    boxShadow: '0 20px 50px rgba(255, 0, 0, 0.6), 0 10px 20px rgba(128, 0, 128, 0.4)'
                   }}
                 >
                   <span className="flex items-center justify-center">

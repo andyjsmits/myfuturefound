@@ -371,8 +371,7 @@ const FutureFoundAssessment = () => {
           message: error.message,
           details: error.details,
           hint: error.hint,
-          code: error.code,
-          statusCode: error.statusCode
+          code: error.code
         });
         throw new Error(`Database insert failed: ${error.message} (Code: ${error.code})`);
       } else {

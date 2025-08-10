@@ -546,7 +546,16 @@ const FutureFoundAssessment = () => {
           </div>
           
           {/* Form Card */}
-          <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 border border-white/20">
+          <div 
+            className="rounded-3xl shadow-2xl p-8 md:p-12"
+            style={{
+              background: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}
+          >
             <div className="space-y-8">
               <div className="text-center">
                 <h2 className="text-3xl font-bold text-gray-900 mb-3">Ready to Begin?</h2>
@@ -564,7 +573,12 @@ const FutureFoundAssessment = () => {
                       type="email"
                       value={emails.parent}
                       onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
-                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 bg-white/50 backdrop-blur"
+                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.6)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)'
+                      }}
                       placeholder="parent@example.com"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-4">
@@ -585,7 +599,12 @@ const FutureFoundAssessment = () => {
                       type="email"
                       value={emails.teen}
                       onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
-                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 bg-white/50 backdrop-blur"
+                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.6)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)'
+                      }}
                       placeholder="teen@example.com"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-4">
@@ -603,7 +622,10 @@ const FutureFoundAssessment = () => {
                     setShowMotivation(true);
                     setTimeout(() => handleEmailSubmit(), 1000);
                   }}
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-5 px-8 rounded-xl text-xl font-bold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-5 px-8 rounded-xl text-xl font-bold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl"
+                  style={{
+                    boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.4), 0 10px 10px -5px rgba(59, 130, 246, 0.04)'
+                  }}
                 >
                   <span className="flex items-center justify-center">
                     Begin Your Journey
@@ -640,14 +662,31 @@ const FutureFoundAssessment = () => {
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 relative overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-4 -left-4 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-          <div className="absolute -top-4 -right-4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+          <div 
+            className="absolute -top-4 -left-4 w-96 h-96 bg-gradient-to-r from-blue-300 to-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"
+            style={{ animationDelay: '0s', animationDuration: '7s' }}
+          ></div>
+          <div 
+            className="absolute -top-4 -right-4 w-96 h-96 bg-gradient-to-r from-purple-300 to-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"
+            style={{ animationDelay: '2s', animationDuration: '7s' }}
+          ></div>
+          <div 
+            className="absolute -bottom-8 left-20 w-96 h-96 bg-gradient-to-r from-pink-300 to-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"
+            style={{ animationDelay: '4s', animationDuration: '7s' }}
+          ></div>
         </div>
 
         <div className="relative z-10 min-h-screen flex flex-col">
           {/* Fixed Header */}
-          <div className="bg-white/90 backdrop-blur-lg border-b border-white/20 sticky top-0 z-20">
+          <div 
+            className="sticky top-0 z-20 border-b"
+            style={{
+              background: 'rgba(255, 255, 255, 0.85)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+            }}
+          >
             <div className="max-w-4xl mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
                 {/* Logo/Brand */}
@@ -700,7 +739,16 @@ const FutureFoundAssessment = () => {
                   ? 'opacity-0 scale-95 translate-y-8' 
                   : 'opacity-100 scale-100 translate-y-0'
               }`}>
-                <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+                <div 
+                  className="rounded-3xl shadow-2xl overflow-hidden"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.85)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+                  }}
+                >
                   {/* Question Header */}
                   <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 px-8 md:px-12 py-8 border-b border-gray-100">
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight text-center">
@@ -721,13 +769,16 @@ const FutureFoundAssessment = () => {
                             key={key}
                             onClick={() => handleResponseChange(currentQuestion.id, key)}
                             disabled={selectedAnswer !== null}
-                            className={`group relative w-full p-6 md:p-8 text-left rounded-2xl border-2 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:pointer-events-none ${
+                            className={`group relative w-full p-6 md:p-8 text-left rounded-2xl border-2 transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] disabled:pointer-events-none ${
                               isSelected
-                                ? 'border-blue-500 bg-blue-500 text-white shadow-xl scale-[1.02]'
+                                ? 'border-blue-500 bg-blue-500 text-white shadow-2xl scale-[1.03]'
                                 : wasSelected
-                                ? 'border-blue-200 bg-blue-50'
-                                : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-lg'
+                                ? 'border-blue-200 bg-blue-50 shadow-md'
+                                : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50/70 hover:shadow-xl'
                             }`}
+                            style={!isSelected && !wasSelected ? {
+                              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            } : {}}
                           >
                             {/* Selection Animation */}
                             {isSelected && (

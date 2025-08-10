@@ -508,122 +508,86 @@ const FutureFoundAssessment = () => {
 
   if (step === 1) {
     return (
-      <div className="flex items-center justify-center px-4 py-16 relative">
+      <div className="section-padding relative">
         {/* Animated Background Blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div 
             className="absolute -top-8 -left-8 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"
             style={{ animationDelay: '0s' }}
-          ></div>
+          />
           <div 
             className="absolute top-1/2 -right-8 w-72 h-72 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"
             style={{ animationDelay: '2s' }}
-          ></div>
+          />
           <div 
             className="absolute -bottom-8 left-1/3 w-72 h-72 bg-gradient-to-br from-pink-400/20 to-cyan-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"
             style={{ animationDelay: '4s' }}
-          ></div>
+          />
         </div>
-        <div className="w-full max-w-2xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center mb-16 animate-fade-in">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl mb-8 shadow-lg">
-              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+        <div className="container-fluid relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full text-sm font-medium text-neutral-700 mb-8 border border-blue-200/50">
+              <span className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse" />
+              Ready to get started?
             </div>
-            <h1 className="text-6xl font-extrabold text-gray-900 mb-6 tracking-tight">
-              Future<span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Found</span>
-            </h1>
-            <p className="text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
-              Discover your unique motivation style with our research-backed assessment
+            
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 mb-6 tracking-tight">
+              Let's Build Your 
+              <span className="text-gradient block sm:inline"> Career Profile</span>
+            </h2>
+            
+            <p className="text-lg sm:text-xl text-neutral-600 mb-12 leading-relaxed">
+              We'll send your personalized results and career insights via email
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500 mb-8">
-              <div className="flex items-center">
-                <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                15 Questions
-              </div>
-              <div className="flex items-center">
-                <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                5 Minutes
-              </div>
-              <div className="flex items-center">
-                <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                Instant Results
-              </div>
-            </div>
           </div>
           
           {/* Form Card */}
-          <div 
-            className="rounded-3xl p-8 md:p-12 shadow-2xl transform hover:scale-105 transition-all duration-300"
-            style={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 30px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-            }}
-          >
+          <div className="max-w-2xl mx-auto">
+            <div 
+              className="glass rounded-3xl p-8 md:p-12 card-hover"
+              style={{
+                boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1), 0 15px 30px rgba(59, 130, 246, 0.05)'
+              }}
+            >
             <div className="space-y-8">
-              <div className="text-center">
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">Ready to Begin?</h2>
-                <p className="text-gray-600 text-lg">We'll send your personalized results via email</p>
-              </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  <label className="block text-sm font-semibold text-neutral-700">
                     Parent Email
-                    <span className="text-gray-400 font-normal ml-2">(optional)</span>
+                    <span className="text-neutral-400 font-normal ml-2">(optional)</span>
                   </label>
                   <div className="relative">
                     <input
                       type="email"
                       value={emails.parent}
                       onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
-                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200"
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.6)',
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)'
-                      }}
+                      className="w-full px-4 py-4 text-base bg-white/80 border-2 border-neutral-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
                       placeholder="parent@example.com"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="icon-sm text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                       </svg>
                     </div>
                   </div>
                 </div>
                 
-                <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-gray-700">
-                    Teen Email
-                    <span className="text-gray-400 font-normal ml-2">(optional)</span>
+                <div className="space-y-3">
+                  <label className="block text-sm font-semibold text-neutral-700">
+                    Student Email
+                    <span className="text-neutral-400 font-normal ml-2">(optional)</span>
                   </label>
                   <div className="relative">
                     <input
                       type="email"
                       value={emails.teen}
                       onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
-                      className="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200"
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.6)',
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)'
-                      }}
-                      placeholder="teen@example.com"
+                      className="w-full px-4 py-4 text-base bg-white/80 border-2 border-neutral-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                      placeholder="student@example.com"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="icon-sm text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                       </svg>
                     </div>
@@ -637,18 +601,12 @@ const FutureFoundAssessment = () => {
                     setShowMotivation(true);
                     setTimeout(() => handleEmailSubmit(), 1000);
                   }}
-                  className="w-full text-white py-5 px-8 rounded-xl text-xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl"
-                  style={{
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    boxShadow: '0 20px 40px rgba(102, 126, 234, 0.4), 0 10px 20px rgba(118, 75, 162, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
-                  }}
+                  className="btn-primary w-full text-lg py-5 flex items-center justify-center group"
                 >
-                  <span className="flex items-center justify-center">
-                    Begin Your Journey
-                    <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </span>
+                  <span>Begin Assessment</span>
+                  <svg className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </button>
                 
                 {showMotivation && (

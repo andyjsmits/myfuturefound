@@ -558,38 +558,38 @@ const FutureFoundAssessment = () => {
   if (step === 1) {
     return (
       <div className="mx-auto max-w-2xl">
-        <div className="rounded-2xl bg-[var(--neutral-white)] p-8 shadow-lg">
+        <div className="rounded-2xl bg-white p-8 shadow-lg">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-[var(--neutral-dark)] mb-4">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">
               Let's Get Started
             </h2>
-            <p className="text-lg text-[var(--neutral-gray)]">
+            <p className="text-lg text-slate-500">
               We'll send your career insights via email
             </p>
           </div>
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-[var(--neutral-gray)] mb-2">
-                Parent Email <span className="text-[var(--neutral-gray)]">(optional)</span>
+              <label className="block text-sm font-medium text-slate-500 mb-2">
+                Parent Email <span className="text-slate-500">(optional)</span>
               </label>
               <input
                 type="email"
                 value={emails.parent}
                 onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200"
                 placeholder="parent@example.com"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-[var(--neutral-gray)] mb-2">
-                Student Email <span className="text-[var(--neutral-gray)]">(optional)</span>
+              <label className="block text-sm font-medium text-slate-500 mb-2">
+                Student Email <span className="text-slate-500">(optional)</span>
               </label>
               <input
                 type="email"
                 value={emails.teen}
                 onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200"
                 placeholder="student@example.com"
               />
             </div>
@@ -600,27 +600,27 @@ const FutureFoundAssessment = () => {
                   setShowMotivation(true);
                   setTimeout(() => handleEmailSubmit(), 1000);
                 }}
-                className="w-full rounded-xl bg-[var(--primary-blue)] px-8 py-4 text-base font-bold text-[var(--neutral-white)] shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--primary-green)]"
+                className="w-full rounded-xl bg-blue-600 px-8 py-4 text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-green-500"
               >
                 Begin Assessment
               </button>
             </div>
             
             {showMotivation && (
-              <div className="text-center mt-4 text-[var(--primary-blue)] font-medium animate-bounce">
+              <div className="text-center mt-4 text-blue-600 font-medium animate-bounce">
                 Great! Let's discover your motivation style! 🚀
               </div>
             )}
             
-            <div className="flex items-center justify-center space-x-4 text-xs text-[var(--neutral-gray)] mt-6">
+            <div className="flex items-center justify-center space-x-4 text-xs text-slate-500 mt-6">
               <div className="flex items-center">
-                <svg className="w-4 h-4 mr-1 text-[var(--primary-green)]" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
                 </svg>
                 <span>Privacy Protected</span>
               </div>
               <div className="flex items-center">
-                <svg className="w-4 h-4 mr-1 text-[var(--primary-blue)]" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 <span>Instant Results</span>
@@ -635,18 +635,18 @@ const FutureFoundAssessment = () => {
   if (step === 2) {
     return (
       <div className="mx-auto max-w-4xl">
-        <div className="rounded-2xl bg-[var(--neutral-white)] p-8 shadow-lg">
+        <div className="rounded-2xl bg-white p-8 shadow-lg">
           {/* Progress Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-[var(--neutral-dark)]">Career Assessment</h3>
-                <p className="text-sm text-[var(--neutral-gray)]">Question {currentQuestionIndex + 1} of {questions.length}</p>
+                <h3 className="font-bold text-slate-900">Career Assessment</h3>
+                <p className="text-sm text-slate-500">Question {currentQuestionIndex + 1} of {questions.length}</p>
               </div>
             </div>
             
@@ -654,11 +654,11 @@ const FutureFoundAssessment = () => {
               <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
                   ref={progressRef}
-                  className="h-full bg-[var(--primary-blue)] rounded-full transition-all duration-700 ease-out"
+                  className="h-full bg-blue-600 rounded-full transition-all duration-700 ease-out"
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <div className="text-xs text-[var(--neutral-gray)] mt-1">
+              <div className="text-xs text-slate-500 mt-1">
                 {Math.round(progress)}% Complete
               </div>
             </div>
@@ -670,7 +670,7 @@ const FutureFoundAssessment = () => {
               ? 'opacity-0 scale-95 translate-y-4' 
               : 'opacity-100 scale-100 translate-y-0'
           }`}>
-            <h2 className="text-2xl font-bold text-[var(--neutral-dark)] leading-tight text-center mb-6">
+            <h2 className="text-2xl font-bold text-slate-900 leading-tight text-center mb-6">
               {currentQuestion.text}
             </h2>
             
@@ -687,14 +687,14 @@ const FutureFoundAssessment = () => {
                     disabled={selectedAnswer !== null}
                     className={`p-4 text-left rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
                       isSelected || wasSelected
-                        ? 'border-[var(--primary-blue)] bg-blue-50 text-[var(--primary-blue)]'
-                        : 'border-gray-200 hover:border-[var(--primary-blue)] hover:bg-blue-50/50'
+                        ? 'border-blue-600 bg-blue-50 text-blue-600'
+                        : 'border-gray-200 hover:border-blue-600 hover:bg-blue-50/50'
                     }`}
                   >
                     <div className="flex items-start space-x-3">
                       <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
                         isSelected || wasSelected
-                          ? 'bg-[var(--primary-blue)] text-white'
+                          ? 'bg-blue-600 text-white'
                           : 'bg-gray-200 text-gray-600'
                       }`}>
                         {isSelected ? (
@@ -706,7 +706,7 @@ const FutureFoundAssessment = () => {
                         )}
                       </div>
                       <div className="flex-1">
-                        <p className="font-medium leading-relaxed text-[var(--neutral-dark)]">{text}</p>
+                        <p className="font-medium leading-relaxed text-slate-900">{text}</p>
                       </div>
                     </div>
                   </button>

@@ -13,7 +13,7 @@ export default function Home() {
         <Hero />
         <Features />
         <CTA />
-        <section id="assessment" className="py-20 sm:py-28 bg-[var(--neutral-light)]">
+        <section id="assessment" className="py-20 sm:py-28" style={{backgroundColor: '#f8fafc'}}>
           <div className="container mx-auto px-6">
             <FutureFoundAssessment />
           </div>

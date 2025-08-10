@@ -32,9 +32,9 @@ export default function Hero() {
       </div>
       
       {/* Hero Content */}
-      <div className="relative mx-auto max-w-4xl px-6 py-32 text-center text-[var(--neutral-white)] sm:py-48 lg:py-56">
+      <div className="relative mx-auto max-w-4xl px-6 py-32 text-center text-white sm:py-48 lg:py-56">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white">
             Unlock Your Teen's Potential
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-slate-200">
@@ -44,7 +44,12 @@ export default function Hero() {
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <button
               onClick={scrollToAssessment}
-              className="rounded-xl bg-[var(--primary-blue)] px-8 py-4 text-base font-bold text-[var(--neutral-white)] shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--primary-green)]"
+              className="rounded-xl px-8 py-4 text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-105"
+              style={{
+                backgroundColor: '#198ae6'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#34d399'}
+              onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = '#198ae6'}
             >
               Start Assessment
             </button>

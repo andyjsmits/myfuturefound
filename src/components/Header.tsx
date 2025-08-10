@@ -17,12 +17,13 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[var(--neutral-white)]/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-sm" style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <a className="flex items-center gap-3 text-[var(--neutral-dark)]" href="#">
+          <a className="flex items-center gap-3" style={{color: '#0f172a'}} href="#">
             <svg 
-              className="h-8 w-8 text-[var(--primary-blue)]" 
+              className="h-8 w-8" 
+              style={{color: '#198ae6'}} 
               fill="none" 
               viewBox="0 0 48 48" 
               xmlns="http://www.w3.org/2000/svg"
@@ -37,23 +38,29 @@ export default function Header() {
           
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-8 md:flex">
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#about">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#about">
               About
             </a>
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#how-it-works">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#how-it-works">
               How it Works
             </a>
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#resources">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#resources">
               Resources
             </a>
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#contact">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#contact">
               Contact
             </a>
           </nav>
           
           <button 
             onClick={scrollToAssessment}
-            className="hidden rounded-xl bg-[var(--primary-blue)] px-5 py-2.5 text-sm font-bold text-[var(--neutral-white)] transition-transform hover:scale-105 hover:bg-[var(--primary-green)] md:inline-block"
+            className="hidden rounded-xl px-5 py-2.5 text-sm font-bold transition-transform hover:scale-105 md:inline-block"
+            style={{
+              backgroundColor: '#198ae6',
+              color: '#ffffff'
+            }}
+            onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#34d399'}
+            onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = '#198ae6'}
           >
             Start Assessment
           </button>
@@ -84,21 +91,27 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="mt-4 flex flex-col gap-4 md:hidden">
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#about">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#about">
               About
             </a>
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#how-it-works">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#how-it-works">
               How it Works
             </a>
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#resources">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#resources">
               Resources
             </a>
-            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#contact">
+            <a className="text-sm font-medium transition-colors hover:scale-105" style={{color: '#64748b'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#198ae6'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#64748b'} href="#contact">
               Contact
             </a>
             <button 
               onClick={scrollToAssessment}
-              className="rounded-xl bg-[var(--primary-blue)] px-5 py-2.5 text-sm font-bold text-[var(--neutral-white)] transition-transform hover:scale-105 hover:bg-[var(--primary-green)]"
+              className="rounded-xl px-5 py-2.5 text-sm font-bold transition-transform hover:scale-105"
+              style={{
+                backgroundColor: '#198ae6',
+                color: '#ffffff'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#34d399'}
+              onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = '#198ae6'}
             >
               Start Assessment
             </button>

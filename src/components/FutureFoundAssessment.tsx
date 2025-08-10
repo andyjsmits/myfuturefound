@@ -559,10 +559,10 @@ const FutureFoundAssessment = () => {
     return (
       <div className="app-card">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-neutral-900 mb-2">
+          <h2 className="text-3xl font-bold text-neutral-900 mb-4">
             Let's Get Started
           </h2>
-          <p className="text-neutral-600">
+          <p className="text-lg text-neutral-600">
             We'll send your career insights via email
           </p>
         </div>
@@ -593,18 +593,20 @@ const FutureFoundAssessment = () => {
             />
           </div>
           
-          <button
-            onClick={() => {
-              setShowMotivation(true);
-              setTimeout(() => handleEmailSubmit(), 1000);
-            }}
-            className="app-button group"
-          >
-            <span>Begin Assessment</span>
-            <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </button>
+          <div className="flex justify-center">
+            <button
+              onClick={() => {
+                setShowMotivation(true);
+                setTimeout(() => handleEmailSubmit(), 1000);
+              }}
+              className="app-button group px-8 py-3"
+            >
+              <span>Begin Assessment</span>
+              <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
           
           {showMotivation && (
             <div className="text-center mt-4 text-blue-600 font-medium animate-bounce">
@@ -665,7 +667,7 @@ const FutureFoundAssessment = () => {
             ? 'opacity-0 scale-95 translate-y-4' 
             : 'opacity-100 scale-100 translate-y-0'
         }`}>
-          <h2 className="text-xl font-bold text-gray-900 leading-tight text-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 leading-tight text-center mb-6">
             {currentQuestion.text}
           </h2>
           

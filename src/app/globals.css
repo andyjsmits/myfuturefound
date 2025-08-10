@@ -7,10 +7,10 @@
 
 /* Design System Variables */
 :root {
-  /* Mobile App Design Tokens */
-  --app-max-width: 480px;    /* Mobile app container width */
-  --app-padding: 1rem;       /* Standard app padding */
-  --app-gap: 0.75rem;        /* Standard app spacing */
+  /* Responsive Container Design Tokens */
+  --app-max-width: min(800px, 90vw);  /* Responsive container width */
+  --app-padding: 1.5rem;               /* Standard app padding */
+  --app-gap: 1rem;                     /* Standard app spacing */
   
   /* Rounded Design Scale */
   --radius-app: 1.25rem;     /* 20px - Main app radius */
@@ -347,7 +347,7 @@ body {
   .app-button {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     color: white;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     border-radius: var(--radius-button);
     font-weight: 600;
     font-size: 1rem;
@@ -355,7 +355,10 @@ body {
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
-    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: auto;
   }
   
   .app-button:hover {
@@ -365,7 +368,7 @@ body {
   
   .app-input {
     width: 100%;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     border-radius: var(--radius-input);
     border: 2px solid var(--color-neutral-200);
     font-size: 1rem;

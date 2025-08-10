@@ -524,6 +524,7 @@ const FutureFoundAssessment = () => {
             style={{ animationDelay: '4s' }}
           />
         </div>
+        
         <div className="container-fluid relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full text-sm font-medium text-neutral-700 mb-8 border border-blue-200/50">
@@ -549,79 +550,85 @@ const FutureFoundAssessment = () => {
                 boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1), 0 15px 30px rgba(59, 130, 246, 0.05)'
               }}
             >
-            <div className="space-y-8">
-              
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-neutral-700">
-                    Parent Email
-                    <span className="text-neutral-400 font-normal ml-2">(optional)</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={emails.parent}
-                      onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
-                      className="w-full px-4 py-4 text-base bg-white/80 border-2 border-neutral-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
-                      placeholder="parent@example.com"
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                      <svg className="icon-sm text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                      </svg>
+              <div className="space-y-8">
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <label className="block text-sm font-semibold text-neutral-700">
+                      Parent Email
+                      <span className="text-neutral-400 font-normal ml-2">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        value={emails.parent}
+                        onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
+                        className="w-full px-4 py-4 text-base bg-white/80 border-2 border-neutral-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                        placeholder="parent@example.com"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                        <svg className="icon-sm text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <label className="block text-sm font-semibold text-neutral-700">
+                      Student Email
+                      <span className="text-neutral-400 font-normal ml-2">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        value={emails.teen}
+                        onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
+                        className="w-full px-4 py-4 text-base bg-white/80 border-2 border-neutral-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                        placeholder="student@example.com"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                        <svg className="icon-sm text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-neutral-700">
-                    Student Email
-                    <span className="text-neutral-400 font-normal ml-2">(optional)</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={emails.teen}
-                      onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
-                      className="w-full px-4 py-4 text-base bg-white/80 border-2 border-neutral-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
-                      placeholder="student@example.com"
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                      <svg className="icon-sm text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                      </svg>
+                <div className="relative">
+                  <button
+                    onClick={() => {
+                      setShowMotivation(true);
+                      setTimeout(() => handleEmailSubmit(), 1000);
+                    }}
+                    className="btn-primary w-full text-lg py-5 flex items-center justify-center group"
+                  >
+                    <span>Begin Assessment</span>
+                    <svg className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+                  
+                  {showMotivation && (
+                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium animate-bounce shadow-lg">
+                      Great! Let's discover your motivation style! 🚀
                     </div>
-                  </div>
+                  )}
                 </div>
-              </div>
-              
-              <div className="relative">
-                <button
-                  onClick={() => {
-                    setShowMotivation(true);
-                    setTimeout(() => handleEmailSubmit(), 1000);
-                  }}
-                  className="btn-primary w-full text-lg py-5 flex items-center justify-center group"
-                >
-                  <span>Begin Assessment</span>
-                  <svg className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </button>
                 
-                {showMotivation && (
-                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium animate-bounce">
-                    Great! Let's discover your motivation style! 🚀
+                <div className="flex items-center justify-center space-x-6 text-xs text-neutral-500">
+                  <div className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
+                    </svg>
+                    <span>Privacy Protected</span>
                   </div>
-                )}
-              </div>
-              
-              <div className="text-center">
-                <div className="flex items-center justify-center text-sm text-gray-500">
-                  <svg className="w-4 h-4 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                  </svg>
-                  Your data is encrypted and secure
+                  <div className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Instant Results</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -865,15 +872,15 @@ const FutureFoundAssessment = () => {
           <div 
             className="absolute -top-8 -left-8 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full mix-blend-multiply filter blur-2xl animate-blob"
             style={{ animationDelay: '0s' }}
-          ></div>
+          />
           <div 
             className="absolute top-1/2 -right-8 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full mix-blend-multiply filter blur-2xl animate-blob"
             style={{ animationDelay: '2s' }}
-          ></div>
+          />
           <div 
             className="absolute -bottom-8 left-1/4 w-96 h-96 bg-gradient-to-br from-pink-400/10 to-cyan-400/10 rounded-full mix-blend-multiply filter blur-2xl animate-blob"
             style={{ animationDelay: '4s' }}
-          ></div>
+          />
         </div>
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Header */}

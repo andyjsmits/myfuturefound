@@ -53,17 +53,37 @@ export default function DatabaseDiagnostic() {
 
       if (tableError) {
         result += `   ❌ Table access failed: ${tableError.message}\n`
-        result += `   This might mean the 'assessments' table doesn't exist\n\n`
+        if (tableError.code === '42P01') {
+          result += `   🔧 SOLUTION: Table 'assessments' doesn't exist. Run the schema SQL:\n`
+          result += `   1. Go to Supabase Dashboard > SQL Editor\n`
+          result += `   2. Run the SQL from supabase-schema.sql file\n\n`
+        } else {
+          result += `   Error code: ${tableError.code}\n\n`
+        }
       } else {
         result += `   ✅ Table accessible\n\n`
       }
 
-      // Test insert permissions
+      // Test insert permissions with realistic assessment data
       result += '4. INSERT PERMISSION TEST:\n'
       const testData = {
         parent_email: 'test@example.com',
-        responses: { 1: 'A', 2: 'B' },
-        results: { test: true },
+        teen_email: 'teen@example.com',
+        responses: {
+          1: 'A', 2: 'B', 3: 'A', 4: 'C', 5: 'B',
+          6: 'A', 7: 'C', 8: 'B', 9: 'A', 10: 'C',
+          11: 'B', 12: 'A', 13: 'C', 14: 'B', 15: 'A'
+        },
+        results: {
+          categories: {
+            'Problem Solving': { score: 15, percentage: 75 },
+            'Leadership': { score: 12, percentage: 60 },
+            'Creativity': { score: 18, percentage: 90 },
+            'Helping Others': { score: 14, percentage: 70 },
+            'Working with Data': { score: 16, percentage: 80 }
+          },
+          topCategories: ['Creativity', 'Working with Data', 'Problem Solving']
+        },
         created_at: new Date().toISOString()
       }
 

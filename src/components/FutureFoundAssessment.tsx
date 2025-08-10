@@ -309,12 +309,19 @@ const FutureFoundAssessment = () => {
       return;
     }
 
-    // Debug logging
+    // Enhanced debug logging
     console.log('=== SUPABASE DEBUG INFO ===');
     console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
     console.log('Supabase Key exists:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    console.log('Supabase Key length:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.length);
+    console.log('Environment:', process.env.NODE_ENV);
     console.log('Emails:', { parent: emails.parent, teen: emails.teen });
+    console.log('Email validation:', { 
+      parent: isValidEmail(emails.parent), 
+      teen: isValidEmail(emails.teen) 
+    });
     console.log('Responses count:', Object.keys(responses).length);
+    console.log('Results preview:', Object.keys(calculatedResults));
 
     try {
       // Only include email fields that have valid values
@@ -332,36 +339,45 @@ const FutureFoundAssessment = () => {
         insertData.teen_email = emails.teen;
       }
 
-      console.log('Data to insert:', insertData);
+      console.log('Data to insert:', JSON.stringify(insertData, null, 2));
 
       // Test connection first
+      console.log('🔍 Testing database connection...');
       const { data: testData, error: testError } = await supabase
         .from('assessments')
         .select('count', { count: 'exact', head: true });
 
       if (testError) {
-        console.error('Connection test failed:', testError);
-        throw new Error(`Database connection failed: ${testError.message}`);
+        console.error('❌ Connection test failed:', {
+          message: testError.message,
+          code: testError.code,
+          details: testError.details,
+          hint: testError.hint
+        });
+        throw new Error(`Database connection failed: ${testError.message} (Code: ${testError.code})`);
       }
 
-      console.log('Connection test passed, current record count:', testData);
+      console.log('✅ Connection test passed, current record count:', testData);
 
       // Now try to insert
+      console.log('🔍 Attempting database insert...');
       const { data, error } = await supabase
         .from('assessments')
         .insert([insertData])
         .select();
 
       if (error) {
-        console.error('Insert error details:', {
+        console.error('❌ Insert error details:', {
           message: error.message,
           details: error.details,
           hint: error.hint,
-          code: error.code
+          code: error.code,
+          statusCode: error.statusCode
         });
-        throw new Error(`Database insert failed: ${error.message}`);
+        throw new Error(`Database insert failed: ${error.message} (Code: ${error.code})`);
       } else {
         console.log('✅ Assessment data saved successfully!', data);
+        console.log('✅ Saved record ID:', data[0]?.id);
         alert('✅ Assessment completed and data saved successfully!');
       }
 
@@ -369,7 +385,41 @@ const FutureFoundAssessment = () => {
       setStep(3);
     } catch (error: any) {
       console.error('❌ Error submitting assessment:', error);
-      alert(`❌ Assessment completed but failed to save: ${error.message}\n\nResults are shown below. Please contact support to save your data.`);
+      
+      // Enhanced error logging for debugging
+      const errorDetails = {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+        timestamp: new Date().toISOString(),
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+        hasKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        responses: Object.keys(responses).length,
+        dataStructure: {
+          parent_email: isValidEmail(emails.parent),
+          teen_email: isValidEmail(emails.teen),
+          responses_count: Object.keys(responses).length,
+          results_keys: Object.keys(calculatedResults)
+        }
+      };
+      
+      console.error('🔍 DETAILED ERROR INFO:', errorDetails);
+      
+      // Show detailed error in alert for debugging
+      let errorMsg = `❌ Database Error Details:\n\n`;
+      errorMsg += `Message: ${error.message}\n`;
+      if (error.code) errorMsg += `Code: ${error.code}\n`;
+      if (error.details) errorMsg += `Details: ${error.details}\n`;
+      if (error.hint) errorMsg += `Hint: ${error.hint}\n`;
+      errorMsg += `\nTime: ${new Date().toLocaleString()}\n`;
+      errorMsg += `\nEnvironment Check:\n`;
+      errorMsg += `- URL configured: ${!!process.env.NEXT_PUBLIC_SUPABASE_URL}\n`;
+      errorMsg += `- Key configured: ${!!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}\n`;
+      errorMsg += `- Response count: ${Object.keys(responses).length}\n`;
+      errorMsg += `\nResults are shown below. Copy this error info if contacting support.`;
+      
+      alert(errorMsg);
       setResults(calculatedResults);
       setStep(3);
     } finally {

@@ -600,7 +600,10 @@ const FutureFoundAssessment = () => {
                   setShowMotivation(true);
                   setTimeout(() => handleEmailSubmit(), 1000);
                 }}
-                className="w-full rounded-xl bg-blue-600 px-8 py-4 text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-green-500"
+                className="w-full rounded-lg px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                style={{ backgroundColor: '#4F84FF' }}
+                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#3B73FF'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = '#4F84FF'}
               >
                 Begin Assessment
               </button>
@@ -639,7 +642,7 @@ const FutureFoundAssessment = () => {
           {/* Progress Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#4F84FF' }}>
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -654,8 +657,8 @@ const FutureFoundAssessment = () => {
               <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
                   ref={progressRef}
-                  className="h-full bg-blue-600 rounded-full transition-all duration-700 ease-out"
-                  style={{ width: `${progress}%` }}
+                  className="h-full rounded-full transition-all duration-700 ease-out"
+                  style={{ backgroundColor: '#4F84FF', width: `${progress}%` }}
                 />
               </div>
               <div className="text-xs text-slate-500 mt-1">
@@ -687,16 +690,18 @@ const FutureFoundAssessment = () => {
                     disabled={selectedAnswer !== null}
                     className={`p-4 text-left rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
                       isSelected || wasSelected
-                        ? 'border-blue-600 bg-blue-50 text-blue-600'
+                        ? 'bg-blue-50 text-blue-600'
                         : 'border-gray-200 hover:border-blue-600 hover:bg-blue-50/50'
                     }`}
+                    style={isSelected || wasSelected ? {borderColor: '#4F84FF'} : {}}
                   >
                     <div className="flex items-start space-x-3">
                       <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
                         isSelected || wasSelected
-                          ? 'bg-blue-600 text-white'
+                          ? 'text-white'
                           : 'bg-gray-200 text-gray-600'
-                      }`}>
+                      }`}
+                      style={isSelected || wasSelected ? {backgroundColor: '#4F84FF'} : {}}>
                         {isSelected ? (
                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />

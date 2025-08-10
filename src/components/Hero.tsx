@@ -20,7 +20,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative">
+    <section className="relative h-screen min-h-[600px] flex items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
@@ -28,32 +28,28 @@ export default function Hero() {
           className="h-full w-full object-cover" 
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAfAI66v7AM69jrN2-0T8Fl3J5eSSZqhRTzQgfUCgBiesyC_7Xv-DEz_2LGVcovIGqhB28UpM4FgKKNK6sChXovJmwa3jl52ghT_kUPF3HZib5IMRxhy9bk69MwAb2WyNck4BHT5KHiXJV3Jbfah-9kdQK80bGSb3TR89UwMV2d6-FHzCs5Dso4pwng0Lvx7Y0Xo4ej1H2l-6I_6GJui25BWIIYNRZft2cewvbcM4bV_t8irJnn3tT-EvYOX25VoC9f--ruUiK"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
       
       {/* Hero Content */}
-      <div className="relative mx-auto max-w-4xl px-6 py-32 text-center text-white sm:py-48 lg:py-56">
+      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
             Unlock Your Teen's Potential
           </h1>
-          <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-slate-200">
+          <p className="text-xl sm:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             Help your high school graduate discover their ideal career path with our comprehensive assessment. 
             Gain insights into their strengths, interests, and values to make informed decisions about their future.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <button
-              onClick={scrollToAssessment}
-              className="rounded-xl px-8 py-4 text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-105"
-              style={{
-                backgroundColor: '#198ae6'
-              }}
-              onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#34d399'}
-              onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = '#198ae6'}
-            >
-              Start Assessment
-            </button>
-          </div>
+          <button
+            onClick={scrollToAssessment}
+            className="rounded-lg px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            style={{ backgroundColor: '#4F84FF' }}
+            onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#3B73FF'}
+            onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = '#4F84FF'}
+          >
+            Start Assessment
+          </button>
         </div>
       </div>
     </section>

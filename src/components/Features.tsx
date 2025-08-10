@@ -35,34 +35,34 @@ export default function Features() {
   ]
 
   return (
-    <section className="py-20 sm:py-28">
+    <section className="py-20 sm:py-28 bg-gray-50">
       <div className="container mx-auto px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{color: '#0f172a'}}>
-            Why Choose Career Compass?
+        <div className="mx-auto max-w-3xl text-center mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            Why Choose MyFutureFound?
           </h2>
-          <p className="mt-4 text-lg leading-8" style={{color: '#64748b'}}>
-            Our assessment provides a personalized approach to career exploration, offering valuable insights for both teens and parents.
+          <p className="text-xl text-gray-600 leading-relaxed">
+            Our assessment provides a personalized approach to career exploration, 
+            offering valuable insights for both teens and parents.
           </p>
         </div>
         
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <div
               key={feature.name}
-              className="flex flex-col rounded-2xl p-8 shadow-lg transition-transform hover:-translate-y-2"
-              style={{backgroundColor: '#ffffff'}}
+              className="bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-lg transition-all duration-300"
             >
               <div 
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-full"
-                style={{ backgroundColor: feature.color, color: '#ffffff' }}
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
+                style={{ backgroundColor: feature.color }}
               >
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-bold" style={{color: '#0f172a'}}>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
                 {feature.name}
               </h3>
-              <p className="mt-2 text-base" style={{color: '#64748b'}}>
+              <p className="text-gray-600 leading-relaxed">
                 {feature.description}
               </p>
             </div>

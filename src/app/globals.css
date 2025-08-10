@@ -1,23 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Design System Variables */
+/* Career Compass Design System */
 :root {
-  /* Responsive Container Design Tokens */
-  --app-max-width: min(800px, 90vw);  /* Responsive container width */
-  --app-padding: 1.5rem;               /* Standard app padding */
-  --app-gap: 1rem;                     /* Standard app spacing */
+  /* Color Palette */
+  --primary-blue: #198ae6;
+  --primary-green: #34d399;
+  --accent-yellow: #f59e0b;
+  --accent-orange: #f97316;
+  --neutral-white: #ffffff;
+  --neutral-light: #f8fafc;
+  --neutral-gray: #64748b;
+  --neutral-dark: #0f172a;
+  
+  /* Container System */
+  --app-max-width: min(1200px, 90vw);  
+  --app-padding: 1.5rem;               
+  --app-gap: 1rem;                     
   
   /* Rounded Design Scale */
-  --radius-app: 1.25rem;     /* 20px - Main app radius */
+  --radius-app: 1rem;        /* 16px - Main app radius */
   --radius-card: 1rem;       /* 16px - Card radius */
-  --radius-button: 0.875rem; /* 14px - Button radius */
+  --radius-button: 0.75rem;  /* 12px - Button radius */
   --radius-input: 0.75rem;   /* 12px - Input radius */
-  --radius-pill: 50rem;      /* Full pill shape */
   
   /* Spacing Scale */
   --space-xs: 0.25rem;   /* 4px */
@@ -103,14 +111,14 @@ body {
 }
 
 body {
-  font-family: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-  color: var(--color-neutral-800);
-  background-color: var(--color-neutral-50);
+  color: var(--neutral-dark);
+  background-color: var(--neutral-light);
 }
 
 /* Custom Animations */
@@ -345,16 +353,16 @@ body {
   }
   
   .app-button {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-    color: white;
-    padding: 0.75rem 1.5rem;
+    background: var(--primary-blue);
+    color: var(--neutral-white);
+    padding: 1rem 2rem;
     border-radius: var(--radius-button);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1rem;
     border: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 10px 25px rgba(25, 138, 230, 0.2);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -362,8 +370,9 @@ body {
   }
   
   .app-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.35);
+    background: var(--primary-green);
+    transform: scale(1.05);
+    box-shadow: 0 15px 35px rgba(52, 211, 153, 0.3);
   }
   
   .app-input {

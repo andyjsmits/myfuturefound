@@ -557,75 +557,74 @@ const FutureFoundAssessment = () => {
 
   if (step === 1) {
     return (
-      <div className="app-card">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-neutral-900 mb-4">
-            Let's Get Started
-          </h2>
-          <p className="text-lg text-neutral-600">
-            We'll send your career insights via email
-          </p>
-        </div>
-        <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-2">
-              Parent Email <span className="text-neutral-400">(optional)</span>
-            </label>
-            <input
-              type="email"
-              value={emails.parent}
-              onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
-              className="app-input"
-              placeholder="parent@example.com"
-            />
+      <div className="mx-auto max-w-2xl">
+        <div className="rounded-2xl bg-[var(--neutral-white)] p-8 shadow-lg">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-[var(--neutral-dark)] mb-4">
+              Let's Get Started
+            </h2>
+            <p className="text-lg text-[var(--neutral-gray)]">
+              We'll send your career insights via email
+            </p>
           </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-2">
-              Student Email <span className="text-neutral-400">(optional)</span>
-            </label>
-            <input
-              type="email"
-              value={emails.teen}
-              onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
-              className="app-input"
-              placeholder="student@example.com"
-            />
-          </div>
-          
-          <div className="flex justify-center">
-            <button
-              onClick={() => {
-                setShowMotivation(true);
-                setTimeout(() => handleEmailSubmit(), 1000);
-              }}
-              className="app-button group px-8 py-3"
-            >
-              <span>Begin Assessment</span>
-              <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-          </div>
-          
-          {showMotivation && (
-            <div className="text-center mt-4 text-blue-600 font-medium animate-bounce">
-              Great! Let's discover your motivation style! 🚀
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-[var(--neutral-gray)] mb-2">
+                Parent Email <span className="text-[var(--neutral-gray)]">(optional)</span>
+              </label>
+              <input
+                type="email"
+                value={emails.parent}
+                onChange={(e) => setEmails(prev => ({ ...prev, parent: e.target.value }))}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-transparent transition-all duration-200"
+                placeholder="parent@example.com"
+              />
             </div>
-          )}
-          
-          <div className="flex items-center justify-center space-x-4 text-xs text-neutral-500 mt-6">
-            <div className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
-              </svg>
-              <span>Privacy Protected</span>
+            
+            <div>
+              <label className="block text-sm font-medium text-[var(--neutral-gray)] mb-2">
+                Student Email <span className="text-[var(--neutral-gray)]">(optional)</span>
+              </label>
+              <input
+                type="email"
+                value={emails.teen}
+                onChange={(e) => setEmails(prev => ({ ...prev, teen: e.target.value }))}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-transparent transition-all duration-200"
+                placeholder="student@example.com"
+              />
             </div>
-            <div className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>Instant Results</span>
+            
+            <div className="mt-8">
+              <button
+                onClick={() => {
+                  setShowMotivation(true);
+                  setTimeout(() => handleEmailSubmit(), 1000);
+                }}
+                className="w-full rounded-xl bg-[var(--primary-blue)] px-8 py-4 text-base font-bold text-[var(--neutral-white)] shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--primary-green)]"
+              >
+                Begin Assessment
+              </button>
+            </div>
+            
+            {showMotivation && (
+              <div className="text-center mt-4 text-[var(--primary-blue)] font-medium animate-bounce">
+                Great! Let's discover your motivation style! 🚀
+              </div>
+            )}
+            
+            <div className="flex items-center justify-center space-x-4 text-xs text-[var(--neutral-gray)] mt-6">
+              <div className="flex items-center">
+                <svg className="w-4 h-4 mr-1 text-[var(--primary-green)]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
+                </svg>
+                <span>Privacy Protected</span>
+              </div>
+              <div className="flex items-center">
+                <svg className="w-4 h-4 mr-1 text-[var(--primary-blue)]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>Instant Results</span>
+              </div>
             </div>
           </div>
         </div>
@@ -635,90 +634,85 @@ const FutureFoundAssessment = () => {
 
   if (step === 2) {
     return (
-      <div className="app-card">
-        {/* Progress Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+      <div className="mx-auto max-w-4xl">
+        <div className="rounded-2xl bg-[var(--neutral-white)] p-8 shadow-lg">
+          {/* Progress Header */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-bold text-[var(--neutral-dark)]">Career Assessment</h3>
+                <p className="text-sm text-[var(--neutral-gray)]">Question {currentQuestionIndex + 1} of {questions.length}</p>
+              </div>
             </div>
-            <span className="font-bold text-gray-900">Assessment</span>
+            
+            <div className="text-right">
+              <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  ref={progressRef}
+                  className="h-full bg-[var(--primary-blue)] rounded-full transition-all duration-700 ease-out"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className="text-xs text-[var(--neutral-gray)] mt-1">
+                {Math.round(progress)}% Complete
+              </div>
+            </div>
           </div>
-          
-          <div className="text-right">
-            <div className="text-sm font-medium text-gray-600">
-              <span className="text-blue-600 font-bold">{currentQuestionIndex + 1}</span> of {questions.length}
-            </div>
-            <div className="w-24 h-1.5 bg-gray-200 rounded-full overflow-hidden mt-1">
-              <div 
-                ref={progressRef}
-                className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-700 ease-out"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-        </div>
 
-        {/* Question */}
-        <div className={`mb-6 transition-all duration-500 transform ${
-          isTransitioning 
-            ? 'opacity-0 scale-95 translate-y-4' 
-            : 'opacity-100 scale-100 translate-y-0'
-        }`}>
-          <h2 className="text-2xl font-bold text-gray-900 leading-tight text-center mb-6">
-            {currentQuestion.text}
-          </h2>
-          
-          {/* Answer Options */}
-          <div className="app-radio-group">
-            {Object.entries(currentQuestion.options).map(([key, text], index) => {
-              const isSelected = selectedAnswer === key;
-              const wasSelected = responses[currentQuestion.id as keyof typeof responses] === key;
-              
-              return (
-                <button
-                  key={key}
-                  onClick={() => handleResponseChange(currentQuestion.id, key)}
-                  disabled={selectedAnswer !== null}
-                  className={`app-radio-option ${isSelected ? 'selected' : ''} ${wasSelected ? 'selected' : ''} text-left`}
-                >
-                  <div className="flex items-start space-x-3">
-                    <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
+          {/* Question */}
+          <div className={`mb-6 transition-all duration-500 transform ${
+            isTransitioning 
+              ? 'opacity-0 scale-95 translate-y-4' 
+              : 'opacity-100 scale-100 translate-y-0'
+          }`}>
+            <h2 className="text-2xl font-bold text-[var(--neutral-dark)] leading-tight text-center mb-6">
+              {currentQuestion.text}
+            </h2>
+            
+            {/* Answer Options */}
+            <div className="grid gap-3">
+              {Object.entries(currentQuestion.options).map(([key, text], index) => {
+                const isSelected = selectedAnswer === key;
+                const wasSelected = responses[currentQuestion.id as keyof typeof responses] === key;
+                
+                return (
+                  <button
+                    key={key}
+                    onClick={() => handleResponseChange(currentQuestion.id, key)}
+                    disabled={selectedAnswer !== null}
+                    className={`p-4 text-left rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
                       isSelected || wasSelected
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-200 text-gray-600'
-                    }`}>
-                      {isSelected ? (
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                        </svg>
-                      ) : (
-                        String.fromCharCode(65 + index)
-                      )}
+                        ? 'border-[var(--primary-blue)] bg-blue-50 text-[var(--primary-blue)]'
+                        : 'border-gray-200 hover:border-[var(--primary-blue)] hover:bg-blue-50/50'
+                    }`}
+                  >
+                    <div className="flex items-start space-x-3">
+                      <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
+                        isSelected || wasSelected
+                          ? 'bg-[var(--primary-blue)] text-white'
+                          : 'bg-gray-200 text-gray-600'
+                      }`}>
+                        {isSelected ? (
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                          </svg>
+                        ) : (
+                          String.fromCharCode(65 + index)
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium leading-relaxed text-[var(--neutral-dark)]">{text}</p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium leading-relaxed">{text}</p>
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <div className="flex items-center justify-between mt-6">
-          <button
-            onClick={() => setStep(1)}
-            className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            ← Back to Start
-          </button>
-          
-          <div className="text-xs text-gray-500">
-            {Math.round(progress)}% Complete
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

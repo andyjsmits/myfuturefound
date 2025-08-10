@@ -1,15 +1,25 @@
+import Header from '@/components/Header'
 import Hero from '@/components/Hero'
+import Features from '@/components/Features'
+import CTA from '@/components/CTA'
 import FutureFoundAssessment from '@/components/FutureFoundAssessment'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-blue-50/30">
-      <div className="app-container">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden">
+      <Header />
+      <main className="flex-grow">
         <Hero />
-        <section id="assessment" className="py-8">
-          <FutureFoundAssessment />
+        <Features />
+        <CTA />
+        <section id="assessment" className="py-20 sm:py-28 bg-[var(--neutral-light)]">
+          <div className="container mx-auto px-6">
+            <FutureFoundAssessment />
+          </div>
         </section>
-      </div>
+      </main>
+      <Footer />
     </div>
   )
 }

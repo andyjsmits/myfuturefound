@@ -1,122 +1,109 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
+  const scrollToAssessment = () => {
+    const assessmentSection = document.getElementById('assessment')
+    if (assessmentSection) {
+      assessmentSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const navigation = [
-    { name: 'Assessment', href: '#assessment' },
-    { name: 'About', href: '#about' },
-    { name: 'Results', href: '#results' },
-    { name: 'Contact', href: '#contact' }
-  ]
+    setIsMobileMenuOpen(false)
+  }
 
   return (
-    <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-neutral-200/50' 
-          : 'bg-white/80 backdrop-blur-sm'
-      }`}
-    >
-      <div className="container-fluid">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-              <svg className="w-4 h-4 lg:w-5 lg:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <h1 className="text-lg lg:text-xl font-bold text-neutral-900 leading-none">
-                Future<span className="text-gradient">Found</span>
-              </h1>
-              <p className="text-xs text-neutral-500 hidden sm:block">Career Discovery Platform</p>
-            </div>
-          </div>
-
+    <header className="sticky top-0 z-50 w-full bg-[var(--neutral-white)]/80 backdrop-blur-sm">
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <a className="flex items-center gap-3 text-[var(--neutral-dark)]" href="#">
+            <svg 
+              className="h-8 w-8 text-[var(--primary-blue)]" 
+              fill="none" 
+              viewBox="0 0 48 48" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" 
+                fill="currentColor"
+              />
+            </svg>
+            <h2 className="text-xl font-bold">Career Compass</h2>
+          </a>
+          
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors duration-200 relative group"
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-              </a>
-            ))}
+          <nav className="hidden items-center gap-8 md:flex">
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#about">
+              About
+            </a>
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#how-it-works">
+              How it Works
+            </a>
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#resources">
+              Resources
+            </a>
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#contact">
+              Contact
+            </a>
           </nav>
-
-          {/* CTA Button */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <button className="btn-secondary text-sm">
-              Get Started
-            </button>
-          </div>
-
+          
+          <button 
+            onClick={scrollToAssessment}
+            className="hidden rounded-xl bg-[var(--primary-blue)] px-5 py-2.5 text-sm font-bold text-[var(--neutral-white)] transition-transform hover:scale-105 hover:bg-[var(--primary-green)] md:inline-block"
+          >
+            Start Assessment
+          </button>
+          
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+          <button 
+            className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
           >
             <svg 
-              className={`w-6 h-6 text-neutral-700 transition-transform duration-200 ${isMobileMenuOpen ? 'rotate-90' : ''}`} 
+              className="h-6 w-6" 
               fill="none" 
+              height="24" 
               stroke="currentColor" 
-              viewBox="0 0 24 24"
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth="2" 
+              viewBox="0 0 24 24" 
+              width="24"
             >
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              )}
+              <line x1="4" x2="20" y1="12" y2="12" />
+              <line x1="4" x2="20" y1="6" y2="6" />
+              <line x1="4" x2="20" y1="18" y2="18" />
             </svg>
           </button>
         </div>
-
+        
         {/* Mobile Navigation */}
-        <div 
-          className={`lg:hidden overflow-hidden transition-all duration-300 ${
-            isMobileMenuOpen ? 'max-h-96 pb-6' : 'max-h-0'
-          }`}
-        >
-          <nav className="flex flex-col space-y-4 pt-4 border-t border-neutral-200">
-            {navigation.map((item, index) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className={`text-base font-medium text-neutral-600 hover:text-neutral-900 transition-all duration-200 transform hover:translate-x-2 ${
-                  isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                }`}
-                style={{ 
-                  transitionDelay: `${index * 50}ms` 
-                }}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.name}
-              </a>
-            ))}
-            <div className="pt-4 border-t border-neutral-200">
-              <button className="btn-primary w-full">
-                Get Started
-              </button>
-            </div>
+        {isMobileMenuOpen && (
+          <nav className="mt-4 flex flex-col gap-4 md:hidden">
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#about">
+              About
+            </a>
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#how-it-works">
+              How it Works
+            </a>
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#resources">
+              Resources
+            </a>
+            <a className="text-sm font-medium text-[var(--neutral-gray)] transition-colors hover:text-[var(--primary-blue)]" href="#contact">
+              Contact
+            </a>
+            <button 
+              onClick={scrollToAssessment}
+              className="rounded-xl bg-[var(--primary-blue)] px-5 py-2.5 text-sm font-bold text-[var(--neutral-white)] transition-transform hover:scale-105 hover:bg-[var(--primary-green)]"
+            >
+              Start Assessment
+            </button>
           </nav>
-        </div>
+        )}
       </div>
     </header>
   )

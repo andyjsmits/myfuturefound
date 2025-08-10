@@ -1,11 +1,16 @@
 [build]
-  publish = "out"
+  publish = ".next"
   command = "npm run build"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [build.environment]
   NODE_VERSION = "18"
+  NEXT_PRIVATE_TARGET = "server"
+
+# NOTE: Set these environment variables in your Netlify dashboard:
+# Site Settings > Environment Variables > Add Variable
+# 
+# NEXT_PUBLIC_SUPABASE_URL = "https://lfwczuqgcqfzgzpkbarv.supabase.co"
+# NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxmd2N6dXFnY3Fmemd6cGtiYXJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NzM1ODUsImV4cCI6MjA3MDM0OTU4NX0.SeFuqRDtS4mBVno0TKkC8YMGHvBF0YpVQ6nczNVVSQM"
